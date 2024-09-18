@@ -1,0 +1,25 @@
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-api
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    container_name: playwright-tests
+    depends_on:
+      - api
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

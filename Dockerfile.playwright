@@ -1,0 +1,18 @@
+# Use the official Playwright image
+FROM mcr.microsoft.com/playwright:focal
+
+# Set the working directory
+WORKDIR /tests
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the test files
+COPY . .
+
+# Expose the port (if needed)
+EXPOSE 3000
+
+# Run the Playwright tests
+CMD ["npx", "playwright", "test"]
